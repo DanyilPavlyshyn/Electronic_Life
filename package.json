@@ -1,0 +1,17 @@
+{
+  "name": "typescript-skeleton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "build": "rimraf dist && tsc"
+  },
+  "author": "s.alemasov",
+  "license": "ISC",
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.4"
+  }
+}
