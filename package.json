@@ -1,7 +1,6 @@
 {
-  "name": "typescript-skeleton",
+  "name": "electronic-life",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "ts-node ./src/index.ts",
@@ -10,8 +9,18 @@
   "author": "s.alemasov",
   "license": "ISC",
   "devDependencies": {
+    "@tsconfig/node12": "^1.0.7",
     "rimraf": "^3.0.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergalemasov/typescript-skeleton.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sergalemasov/typescript-skeleton/issues"
+  },
+  "homepage": "https://github.com/sergalemasov/typescript-skeleton#readme",
+  "description": ""
 }
