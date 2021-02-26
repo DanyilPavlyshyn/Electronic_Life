@@ -8,6 +8,7 @@ export class Grid {
         this.width = gridWidth;
         this.height = gridHeight;
         this.space = new Array(this.width * this.height);
+        return this
     }
 
     isInside(vector: {x: number, y: number}) {
@@ -24,19 +25,9 @@ export class Grid {
     }
 }
 
-export class Vector {
-    x: number;
-    y: number;
-
-    constructor (x: number, y: number) {
-        this.x = x;
-        this.y = y;
-    }
-
-    plus(other: {x: number, y: number}) {
-        return new Vector(this.x + other.x, this.y + other.y);
-    }
+export interface IGrid {
+    height: number,
+    width: number,
+    get: Function,
+    set: Function
 }
-
-// передавая объект аргуметном функции, всегда указываем типы каждого свойства? {x: number, y: number}
-// а если таких свойств 100 и мы не знаем какие будут нужны?

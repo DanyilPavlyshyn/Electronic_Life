@@ -1,48 +1,9 @@
-import { Grid, Vector } from './grid';
-
-const info = {
-    '#': 'стены и камни',
-    'o': 'существо',
-    ' ': 'пустое пространство'
-};
-
-const legend: string[] = [
-            "############################",
-            "#      #    #      o      ##",
-            "#                          #",
-            "#          #####           #",
-            "##         #   #    ##     #",
-            "###           ##     #     #",
-            "#           ###      #     #",
-            "#   ####                   #",
-            "#   ##       o             #",
-            "# o  #         o       ### #",
-            "#    #                     #",
-            "############################"
-        ];
-
-function elementFromChar(legend: {ch: string}, ch: string) {
-    if (ch == " ") return null;
-    let element: {originChar: string} = new legend[ch]();
-    element.originChar = ch;
-    return element;
-}
-
-function charFromElement(element: {originChar: string}) {
-    if (element == null)
-      return " ";
-    else
-      return element.originChar;
-  }
+import { Grid, IGrid } from './grid';
+import { Vector } from './vector';
 
 export class World {
     legend: object;
-    grid: {
-        height: number,
-        width: number,
-        get: Function,
-        set: Function
-    };
+    grid: IGrid;
 
     constructor(map: string[], legend: object) {
         this.grid = new Grid(map[0].length, map.length);
@@ -50,7 +11,7 @@ export class World {
 
         map.forEach(function(line, y) {
             for (var x = 0; x < line.length; x++) {
-              this.grid.set(new Vector(x, y), elementFromChar(legend, line[x]));
+              this.grid.set(new Vector(x, y), this.elementFromChar(legend, line[x]));
             }
         });
     }
@@ -61,7 +22,7 @@ export class World {
         for (let y = 0; y < this.grid.height; y++) {
           for (let x = 0; x < this.grid.width; x++) {
             let element = this.grid.get(new Vector(x, y));
-            output += charFromElement(element);
+            output += this.charFromElement(element);
           }
           output += "\n";
         }
@@ -71,6 +32,27 @@ export class World {
     turn() {
 
     }
+
+    
+  elementFromChar(legend: Record<string, any>, char: string): string | null {
+
+    if (char === " ") return null;
+    
+    var element = new legend[char]();
+    element.originChar = char;
+    return element;
+  }
+
+  charFromElement(element: {originChar: string}) {
+    if (element == null)
+    return " ";
+    else
+    return element.originChar;
+  }
 }
 
-export const Wall = {};
+export class Wall {
+  constructor() {
+    return '#'
+  }
+};

@@ -1,19 +1,7 @@
-import { SomeClass } from './some-class';
-import { Grid, Vector } from './grid';
-import { World, Wall } from './world';
-import { Action } from './being';
+import { legend } from "./legend";
+import { Wall, World } from "./world";
 
-/*
-var grid = new Grid(5, 5);
-console.log(grid.get(new Vector(1, 1))); // → undefined
-
-grid.set(new Vector(1, 1), "X");
-console.log(grid.get(new Vector(1, 1))); // → X
-
-return element;
-*/
-
-var plan: string[] = [
+const plan: string[] = [
             "############################",
             "#      #    #      o      ##",
             "#                          #",
@@ -28,5 +16,5 @@ var plan: string[] = [
             "############################"
         ];
 
-var world = new World(plan, {"#": Wall, "o": Action});
+var world = new World(plan, legend);
 console.log(world.toString());
