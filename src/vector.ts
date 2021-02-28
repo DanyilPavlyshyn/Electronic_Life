@@ -1,3 +1,4 @@
+
 export class Vector {
     x: number;
     y: number;
@@ -10,4 +11,10 @@ export class Vector {
     plus(other: {x: number, y: number}) {
         return new Vector(this.x + other.x, this.y + other.y);
     }
+}
+
+export interface IVector {
+    x: number,
+    y: number,
+    plus: Function
 }

@@ -4,9 +4,11 @@ import { Grid } from './grid';
 import { View } from './view';
 
 export class Being extends WorldObject {
+    energy: number;
+
     constructor() {
         super();
-
+        this.energy = 20;
     }
 
     act(view: Record<string, Function>) {
@@ -17,4 +19,10 @@ export class Being extends WorldObject {
 
         return {type: "move", direction: this.direction};
     }
+}
+
+export type TBeing = Record<string, any>;
+
+export interface IBeing {
+    act: Function
 }

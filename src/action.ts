@@ -13,3 +13,10 @@ export class Action {
     }
 
 }
+
+export type TAction = Record<string, any>;
+
+export interface IAction {
+    direction: string,
+    type: string
+}
