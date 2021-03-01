@@ -1,12 +1,12 @@
-import { WorldObject } from "./base-object-class";
+import { PlantEater } from "./plant-eater";
 import { View } from "./view";
 
-export class PlantEater extends WorldObject {
+export class SmartPlantEater extends PlantEater {
     energy: number;
 
     constructor() {
         super();
-        this.energy = 20;
+
     }
 
     act(context: View) {

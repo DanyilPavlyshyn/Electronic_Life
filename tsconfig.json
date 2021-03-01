@@ -6,7 +6,9 @@
         "preserveConstEnums": true,
         "outDir": "dist",
         "sourceMap": true,
-        "target": "ES6"
+        "target": "ES6",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true
     },
     "include": [
         "src/**/*"

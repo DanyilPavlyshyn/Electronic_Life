@@ -1,50 +1,38 @@
-import { IGrid } from "./grid";
 import { utils } from "./utils";
-import { IVector, Vector } from "./vector";
-import { TWorld } from "./world";
+import { Vector } from "./vector";
+import { World } from "./world";
 
 export class View {
-    grid: IGrid;
-    directions: string[];
-    world: TWorld;
-    vector: IVector;
+    directionNames: string[];
+    world: World;
+    vector: Vector;
 
-    constructor(world: TWorld, vector: IVector) {
+    constructor(world: World, vector: Vector) {
         this.world = world;
         this.vector = vector;
-        this.directions = ["n","ne","e","se","s","sw","w","nw"];
-        /*   
-        this.grid = grid;
-        
-        */
+        this.directionNames = ["n","ne","e","se","s","sw","w","nw"];
     }
 
     look(dir: string) {
         const target = this.vector.plus(directions[dir]);
 
         if (this.world.grid.isInside(target)) {
-            return utils.charFromElement(this.world.grid.get(target));
+            return utils.charFromElement( this.world.grid.get( target ) );
         } else {
             return "#";
         }
     }
 
     find(symbol: string) {
-        return this.directions.find(el => this.look(el) === symbol) ?? null;
+        return this.directionNames.find(el => this.look(el) === symbol) ?? null;
     }
 
     findAll(symbol: string) {
-        return this.directions.filter(el => this.look(el) === symbol) ?? null;
+        return this.directionNames.filter(el => this.look(el) === symbol) ?? null;
     }
 }
 
-export type TView = Record<string, any>;
-
-export interface IDirections {
-    [key: string]: object
-}
-
-export const directions: IDirections = {
+export const directions: Record<string, any> = {
     "n":  new Vector( 0, -1),
     "ne": new Vector( 1, -1),
     "e":  new Vector( 1,  0),

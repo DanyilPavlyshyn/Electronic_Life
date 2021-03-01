@@ -1,42 +1,9 @@
-import { legend, legend2 } from "./legend";
+import { worlds } from "./legend";
 import { LifelikeWorld } from "./life-like-world";
-import { Wall, World } from "./world";
+import { World } from "./world";
 
-const plan: string[] = [
-            "############################",
-            "#                  o       #",
-            "#           ~              #",
-            "#          #####           #",
-            "#          #   #           #",
-            "#          #####           #",
-            "#         ~                #",
-            "#                   ~      #",
-            "#            o             #",
-            "# o            o           #",
-            "#                          #",
-            "############################"
-        ];
-
-var valley: string[] =
-            ["############################",
-             "#####                 ######",
-             "##   ***                **##",
-             "#   *##**         **  O  *##",
-             "#    ***     O    ##**    *#",
-             "#       O         ##***    #",
-             "#                 ##**     #",
-             "#   O       #*             #",
-             "#*          #**       O    #",
-             "#***        ##**    O    **#",
-             "##****     ###***       *###",
-             "############################"
-        ];
-
-let world = new LifelikeWorld(valley, legend2);
-//let world = new World(plan, legend);
-
-function startMove() {
-    
+function startMove(world: World) {
+    console.clear();
     let counter: number = 0;
     
     const move = setInterval( () => {
@@ -45,11 +12,11 @@ function startMove() {
         counter += 1;
         console.log(world.toString());
 
-        if (counter >= 50) {
+        if (counter >= 40) {
             clearInterval(move);
             return
         } 
-    }, 400);
+    }, 500);
 }
 
-startMove();
+startMove(new LifelikeWorld(worlds.valley.map, worlds.valley.legend));

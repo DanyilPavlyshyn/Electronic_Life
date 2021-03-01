@@ -1,12 +1,12 @@
-import { IAction, TAction } from "./action";
-import { TBeing } from "./being";
+import { Action } from "./action";
+import { Being } from "./being";
 import { utils } from "./utils";
-import { IVector } from "./vector";
+import { Vector } from "./vector";
 import { View } from "./view";
 import { World } from "./world";
 
 export class LifelikeWorld extends World {
-    actionTypes: TAction;
+    actionTypes: Record<string, Function>;
 
     constructor(map: string[], legend: object) {
         super(map, legend);
@@ -14,8 +14,8 @@ export class LifelikeWorld extends World {
         this.legend = legend;
     }
 
-    letAct(being: TBeing, vector: IVector) {
-        const action: TAction = being.act(new View(this, vector));
+    letAct(being: Being, vector: Vector) {
+        const action: Action = being.act(new View(this, vector));
 
         const handled = action 
                 && action.type in this.actionTypes 
@@ -29,14 +29,14 @@ export class LifelikeWorld extends World {
       };
 }
 
-const actionTypes: TAction = {
+const actionTypes: Record<string, any> = {
 
-    grow(being: TBeing) {
+    grow(being: Being) {
         being.energy += 0.5;
         return true;
     },
 
-    move(being: TBeing, vector: IVector, action: TAction) {
+    move(being: Being, vector: Vector, action: Action) {
 
         const dest = this.checkDestination(action, vector);
 
@@ -52,18 +52,18 @@ const actionTypes: TAction = {
         return true;
     },
 
-    eat(being: TBeing, vector: IVector, action: TAction) {
+    eat(being: Being, vector: Vector, action: Action) {
         const dest = this.checkDestination(action, vector);
         const atDest = dest != null && this.grid.get(dest);
-        if (!atDest || atDest.energy == null) {
-          return false;
-          being.energy += atDest.energy;
-        }
+
+        if (!atDest || atDest.energy == null) return false;  
+        
+        being.energy += atDest.energy;
         this.grid.set(dest, null);
         return true;
     },
 
-    reproduce(being: TBeing, vector: IVector, action: TAction) {
+    reproduce(being: Being, vector: Vector, action: Action) {
         const baby = utils.elementFromChar(this.legend, being.originChar);
         const dest = this.checkDestination(action, vector);
 

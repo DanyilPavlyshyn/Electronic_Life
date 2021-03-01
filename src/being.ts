@@ -1,17 +1,16 @@
-import { Action } from './action';
 import { WorldObject } from './base-object-class';
-import { Grid } from './grid';
 import { View } from './view';
 
 export class Being extends WorldObject {
     energy: number;
+    originChar: string;
 
     constructor() {
         super();
         this.energy = 20;
     }
 
-    act(view: Record<string, Function>) {
+    act(view: View) {
 
         if (view.look(this.direction) != " ")
 
@@ -19,10 +18,4 @@ export class Being extends WorldObject {
 
         return {type: "move", direction: this.direction};
     }
-}
-
-export type TBeing = Record<string, any>;
-
-export interface IBeing {
-    act: Function
 }

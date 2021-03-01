@@ -1,5 +1,5 @@
 import { WorldObject } from "./base-object-class";
-import { TBeing } from "./being";
+import { View } from "./view";
 
 export class Plant extends WorldObject {
     energy: number;
@@ -9,7 +9,7 @@ export class Plant extends WorldObject {
         this.energy = 3 + Math.random() * 4;
     }
   
-    act(context: TBeing) {
+    act(context: View) {
         if (this.energy > 15) {
         var space = context.find(" ");
         if (space)

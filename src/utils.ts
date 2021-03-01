@@ -10,10 +10,8 @@ export const utils = {
         return element;
     },
 
-    charFromElement(element: {originChar: string}) {
-        if (element == null)
-        return " ";
-        else
+    charFromElement(element: Record<string, any>) {
+        if (element === null) return " ";
         return element.originChar;
     }
 }

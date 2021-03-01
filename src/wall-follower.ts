@@ -1,5 +1,5 @@
 import { directionNames } from "./legend";
-import { TView } from "./view";
+import { View } from "./view";
 
 export class WallFollower {
     dir: string;
@@ -13,7 +13,7 @@ export class WallFollower {
         return directionNames[(index + n + 8) % 8];
     }
 
-    act(view: TView) {
+    act(view: View) {
         let start = this.dir;
     
         if (view.look( this.dirPlus(this.dir, -3)) != " ")

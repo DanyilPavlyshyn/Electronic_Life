@@ -17,11 +17,11 @@ export class Grid {
                vector.y >= 0 && vector.y < this.height;
     }
 
-    get(vector: {x: number, y: number}) {
+    get(vector: Vector) {
         return this.space[vector.x + this.width * vector.y];
     }
 
-    set(vector: {x: number, y: number}, value: string) {
+    set(vector: {x: number, y: number}, value: any) {
         this.space[vector.x + this.width * vector.y] = value;
     }
 

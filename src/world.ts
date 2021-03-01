@@ -1,13 +1,13 @@
-import { IAction } from './action';
-import { IBeing } from './being';
-import { Grid, IGrid } from './grid';
+import { Action } from './action';
+import { Being } from './being';
+import { Grid } from './grid';
 import { utils } from './utils';
-import { IVector, Vector } from './vector';
+import { Vector } from './vector';
 import { directions, View } from './view';
 
 export class World {
     legend: object;
-    grid: IGrid;
+    grid: Grid;
 
     constructor(map: string[], legend: object) {
         this.grid = new Grid(map[0].length, map.length);
@@ -37,17 +37,17 @@ export class World {
       const acted: object[] = [];
       //const strGrid: string = this.grid.toString();
 
-      this.grid.forEach((being: IBeing, vector: IVector) => {
+      this.grid.forEach((being: Being, vector: Vector) => {
 
         if (being.act && acted.indexOf(being) == -1) {
           acted.push(being);
           this.letAct(being, vector);
         }
 
-      });
+      }, this);
     }
 
-    letAct(being: IBeing, vector: IVector) {
+    letAct(being: Being, vector: Vector) {
       const action = being.act(new View(this, vector));
 
       if (action && action.type == "move") {
@@ -61,7 +61,7 @@ export class World {
       }
     };
 
-    checkDestination(action: IAction, vector: IVector) {
+    checkDestination(action: Action, vector: Vector) {
       
       if (directions.hasOwnProperty(action.direction)) {
         var dest = vector.plus(directions[action.direction]);
@@ -71,8 +71,6 @@ export class World {
 
     };
 }
-
-export type TWorld = Record<string, any>;
 
 export class Wall {
   constructor() {
