@@ -17,7 +17,7 @@ export class View {
         const target = this.vector.plus(directions[dir]);
 
         if (this.world.grid.isInside(target)) {
-            return utils.charFromElement( this.world.grid.get( target ) );
+            return utils.charFromElement(this.world.grid.get( target ));
         } else {
             return "#";
         }
