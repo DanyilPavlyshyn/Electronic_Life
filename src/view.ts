@@ -35,11 +35,11 @@ export class View {
         return directions.find(el => this.look(el) === symbol) ?? null;
     }
 
-    findAllFood(target: string) {
+    findAllFood(food: string) {
         const allFood: Vector[] = [];
 
         this.world.grid.forEach( (value: string, vector: Vector) => {
-            if (value === target) {
+            if (value === food) {
                 allFood.push(vector);
             }
         }, this.world)

@@ -19,4 +19,4 @@ function startMove(world: World) {
     }, 500);
 }
 
-startMove(new LifelikeWorld(worlds.valley.map, worlds.valley.legend));
+startMove(new LifelikeWorld(worlds.newValley.map, worlds.newValley.legend));

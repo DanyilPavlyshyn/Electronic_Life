@@ -45,7 +45,7 @@ export class SmartPlantEater extends PlantEater {
 
         if (this.energy > 60 && space) return {type: "reproduce", direction: space};
         
-        const plant = context.find("*");
+        const plant = context.findFoodDirection("*", dirs);
         
         if (plant) return {type: "eat", direction: plant};
 

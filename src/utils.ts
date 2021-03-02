@@ -17,7 +17,7 @@ export const utils = {
         return element.originChar;
     },
 
-    calcDistance(b: SmartPlantEater, t: Vector): number {
-        return Math.abs(b.x - t.x) + Math.abs(b.y - t.y)
+    calcDistance(being: SmartPlantEater, target: Vector): number {
+        return Math.abs(being.x - target.x) + Math.abs(being.y - target.y)
     }
 }
