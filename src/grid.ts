@@ -27,11 +27,13 @@ export class Grid {
 
     forEach(f: Function, context: object) {
         for (var y = 0; y < this.height; y++) {
-          for (var x = 0; x < this.width; x++) {
-            let value = this.space[x + y * this.width];
-            if (value != null)
-              f.call(context, value, new Vector(x, y));
-          }
+            for (var x = 0; x < this.width; x++) {
+                
+                let value = this.space[x + y * this.width];
+
+                if (value != null)
+                    f.call(context, value, new Vector(x, y));
+            }
         }
-      };
+    };
 }

@@ -15,7 +15,7 @@ export class World {
 
         map.forEach((line, y) => {
             for (var x = 0; x < line.length; x++) {
-              this.grid.set(new Vector(x, y), utils.elementFromChar(legend, line[x]));
+              this.grid.set(new Vector(x, y), utils.elementFromChar(legend, line[x], x, y));
             }
         });
     }
@@ -35,11 +35,10 @@ export class World {
 
     turn() {
       const acted: object[] = [];
-      //const strGrid: string = this.grid.toString();
 
       this.grid.forEach((being: Being, vector: Vector) => {
 
-        if (being.act && acted.indexOf(being) == -1) {
+        if (being.act && acted.indexOf(being) === -1) {
           acted.push(being);
           this.letAct(being, vector);
         }
@@ -50,10 +49,10 @@ export class World {
     letAct(being: Being, vector: Vector) {
       const action = being.act(new View(this, vector));
 
-      if (action && action.type == "move") {
+      if (action && action.type === "move") {
         const dest = this.checkDestination(action, vector);
 
-        if (dest && this.grid.get(dest) == null) {
+        if (dest && this.grid.get(dest) === null) {
           this.grid.set(vector, null);
           this.grid.set(dest, being);
         }

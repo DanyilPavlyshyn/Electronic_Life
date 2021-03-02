@@ -40,9 +40,9 @@ const actionTypes: Record<string, any> = {
 
         const dest = this.checkDestination(action, vector);
 
-        if (dest == null
+        if (dest === null
                 || being.energy <= 1
-                || this.grid.get(dest) != null) {
+                || this.grid.get(dest) !== null) {
           return false;
         }
         

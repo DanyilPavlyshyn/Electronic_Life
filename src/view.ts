@@ -30,6 +30,22 @@ export class View {
     findAll(symbol: string) {
         return this.directionNames.filter(el => this.look(el) === symbol) ?? null;
     }
+
+    findFoodDirection(symbol: string, directions: string[]) {
+        return directions.find(el => this.look(el) === symbol) ?? null;
+    }
+
+    findAllFood(target: string) {
+        const allFood: Vector[] = [];
+
+        this.world.grid.forEach( (value: string, vector: Vector) => {
+            if (value === target) {
+                allFood.push(vector);
+            }
+        }, this.world)
+
+        return allFood
+    }
 }
 
 export const directions: Record<string, any> = {
