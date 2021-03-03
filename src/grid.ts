@@ -31,7 +31,7 @@ export class Grid {
                 
                 let value = this.space[x + y * this.width];
 
-                if (value != null)
+                if (value !== null)
                     f.call(context, value, new Vector(x, y));
             }
         }

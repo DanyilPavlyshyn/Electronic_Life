@@ -1,8 +1,7 @@
 import { worlds } from "./legend";
 import { LifelikeWorld } from "./life-like-world";
-import { World } from "./world";
 
-function startMove(world: World) {
+function startMove(world: LifelikeWorld) {
     console.clear();
     let counter: number = 0;
     
@@ -10,13 +9,19 @@ function startMove(world: World) {
         console.clear();
         world.turn();
         counter += 1;
-        console.log(world.toString());
+        world.countPopulation();
 
-        if (counter >= 40) {
+        console.log(world.toString());
+        console.log(`day: ${counter}`);
+        console.log(`plants: ${world.plants}`);
+        console.log(`plantEaters: ${world.plantEaters}`);
+        console.log(`carnivores: ${world.carnivores}`);
+
+        if (world.checkExtinction() || counter >= 300) {
             clearInterval(move);
             return
         } 
-    }, 500);
+    }, 100);
 }
 
-startMove(new LifelikeWorld(worlds.newValley.map, worlds.newValley.legend));
+startMove(new LifelikeWorld(worlds.desert.map, worlds.desert.legend));

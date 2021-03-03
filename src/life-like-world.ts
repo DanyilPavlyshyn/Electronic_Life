@@ -1,5 +1,6 @@
 import { Action } from "./action";
 import { Being } from "./being";
+import { SmartPlantEater } from "./smart-plant-eater";
 import { utils } from "./utils";
 import { Vector } from "./vector";
 import { View } from "./view";
@@ -7,6 +8,9 @@ import { World } from "./world";
 
 export class LifelikeWorld extends World {
     actionTypes: Record<string, Function>;
+    plants: number;
+    plantEaters: number;
+    carnivores: number;
 
     constructor(map: string[], legend: object) {
         super(map, legend);
@@ -26,7 +30,25 @@ export class LifelikeWorld extends World {
           if (being.energy <= 0)
             this.grid.set(vector, null);
         }
-      };
+    }
+
+    countPopulation() {
+        const arrWorld = this.toString().split('');
+
+        this.plants = arrWorld.filter(char => char === '*').length;
+        this.plantEaters = arrWorld.filter(char => char === 'O').length;
+        this.carnivores = arrWorld.filter(char => char === '@').length;
+    }
+
+    checkExtinction(): any {
+        return this.plants === 0
+            ? true
+            : this.plantEaters === 0
+                ? true
+                : this.carnivores === 0
+                    ? true
+                    : false
+    }
 }
 
 const actionTypes: Record<string, any> = {
@@ -36,7 +58,7 @@ const actionTypes: Record<string, any> = {
         return true;
     },
 
-    move(being: Being, vector: Vector, action: Action) {
+    move(being: SmartPlantEater, vector: Vector, action: Action) {
 
         const dest = this.checkDestination(action, vector);
 
@@ -49,6 +71,8 @@ const actionTypes: Record<string, any> = {
         being.energy -= 1;
         this.grid.set(vector, null);
         this.grid.set(dest, being);
+        being.x = vector.x;
+        being.y = vector.y;
         return true;
     },
 

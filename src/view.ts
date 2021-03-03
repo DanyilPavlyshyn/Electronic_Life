@@ -38,8 +38,9 @@ export class View {
     findAllFood(food: string) {
         const allFood: Vector[] = [];
 
-        this.world.grid.forEach( (value: string, vector: Vector) => {
-            if (value === food) {
+        this.world.grid.forEach( (value: {originChar: string}, vector: Vector) => {
+    
+            if (value.originChar === food) {
                 allFood.push(vector);
             }
         }, this.world)

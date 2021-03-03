@@ -17,7 +17,7 @@ export class SmartPlantEater extends PlantEater {
         const allFood = context.findAllFood("*");
         let closestFood = allFood[0];
         let distance = utils.calcDistance(this, allFood[0]);
-    
+
         allFood.forEach( (vector, index) => {
             const newDistance = utils.calcDistance(this, vector);
     
@@ -27,7 +27,7 @@ export class SmartPlantEater extends PlantEater {
             }
         });
    
-        const dirs = []; //["n","ne","e","se","s","sw","w","nw"];
+        const dirs = []; //["n","ne","e","se","s","sw","w","nw"]; 
 
         if (this.x > closestFood.x) dirs.push("w")
         if (this.x < closestFood.x) dirs.push("e")
@@ -41,9 +41,11 @@ export class SmartPlantEater extends PlantEater {
         if (this.x > closestFood.x && this.y < closestFood.y) dirs.push("sw")
         if (this.x < closestFood.x && this.y > closestFood.y) dirs.push("ne")
 
+        //console.log(`dirs: ${JSON.stringify(dirs)} food:${JSON.stringify(closestFood)}`);
+
         const space = context.findFoodDirection(" ", dirs);
 
-        if (this.energy > 60 && space) return {type: "reproduce", direction: space};
+        if (this.energy > 100 && space) return {type: "reproduce", direction: space};
         
         const plant = context.findFoodDirection("*", dirs);
         
