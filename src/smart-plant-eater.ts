@@ -20,10 +20,16 @@ export class SmartPlantEater extends PlantEater {
     act(context: View) {
         //let dirs = []; //["n","ne","e","se","s","sw","w","nw"]; 
 
-        const closestFood = context.findClosestFood(this, this.appropriateFood, context);
+        let closestFood;
         
-        // если путь не существует или в конце пути - не еда, создаем маршрут
-        if (!this.route || utils.charFromElement(context.world.grid.get(this.route.b)) !== this.appropriateFood) {
+        // если путь не существует или в конце пути - не еда или шаги в маршруте закончились - создаем маршрут
+        if (
+            !this.route ||
+            utils.charFromElement(context.world.grid.get(this.route.b)) !== this.appropriateFood ||
+            this.route.dirs.length < 1
+            ) {
+               
+            closestFood = context.findClosestFood(this, this.appropriateFood, context);
             this.route = new Route(context, new Vector(this.x, this.y), closestFood);
         }
 

@@ -1,5 +1,10 @@
 import { worlds } from "./legend";
 import { LifelikeWorld } from "./life-like-world";
+/*
+import { Route } from "./route";
+import { Vector } from "./vector";
+import { View } from "./view";
+*/
 
 function startMove(world: LifelikeWorld) {
     console.clear();
@@ -26,3 +31,16 @@ function startMove(world: LifelikeWorld) {
 }
 
 startMove(new LifelikeWorld(worlds.desert.map, worlds.desert.legend));
+
+/*
+function test() {
+    const world = new LifelikeWorld(worlds.desert.map, worlds.desert.legend);
+    const vector = new Vector(1, 1);
+    const view = new View(world, vector);
+    const route = new Route(view, vector, new Vector(10, 20));
+
+    console.log(`a: ${JSON.stringify(vector)} b: ${JSON.stringify(new Vector(10, 10))} dirs: ${JSON.stringify(route.dirs)}`)
+}
+
+test();
+*/

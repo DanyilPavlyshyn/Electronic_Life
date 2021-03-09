@@ -25,24 +25,28 @@ export class Route {
         let dirs: string[] = [];
         let end = this.b;
 
+        let counter = 0;
+
         function dirPlus(dir: string, n: number) {
             const index = directionNames.indexOf(dir);
             return directionNames[(index + n + 4) % 4];
         }
 
-        function findSpace(current: View, dir: string) {
-            //console.log(`current.vector: ${JSON.stringify(current.vector.x)} end.x: ${JSON.stringify(end.x)}`)
+        function findSpace(current: View, dir: string) {           
             
             if (current.vector.x === end.x && current.vector.y === end.y) return
 
+            if(counter >= 10) return 
+
+            counter += 1;
+
             let start = dir;
         
-            if (current.look(dir) !== " ") {
-                start = dir;
-            }
-            while (current.look(dir) !== " ") {
-                dir = dirPlus(dir, 1);
-                if (dir === start) break;
+            if (current.look(dir) !== " ") { 
+                while (current.look(dir) !== " ") {
+                    dir = dirPlus(dir, 1);
+                    if (dir === start) break;
+                }
             }
 
             dirs.unshift(dir);
@@ -51,8 +55,6 @@ export class Route {
         }
 
         findSpace(this.view, dir);
-        
-        //console.log(`a: ${JSON.stringify(this.a)} b: ${JSON.stringify(this.b)} dirs: ${JSON.stringify(dirs)}`)
 
         return dirs;
     }
