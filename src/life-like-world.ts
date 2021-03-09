@@ -41,13 +41,8 @@ export class LifelikeWorld extends World {
     }
 
     checkExtinction(): any {
-        return this.plants === 0
-            ? true
-            : this.plantEaters === 0
-                ? true
-                : this.carnivores === 0
-                    ? true
-                    : false
+        if (this.plants === 0 || this.plantEaters === 0 || this.carnivores === 0) return true
+        return false
     }
 }
 

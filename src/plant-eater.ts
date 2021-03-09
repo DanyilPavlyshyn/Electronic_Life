@@ -3,10 +3,13 @@ import { View } from "./view";
 
 export class PlantEater extends WorldObject {
     energy: number;
+    lastDir: string;
+    appropriateFood: string;
 
     constructor() {
         super();
         this.energy = 20;
+        //this.lastMove = lastMove;
     }
 
     act(context: View) {

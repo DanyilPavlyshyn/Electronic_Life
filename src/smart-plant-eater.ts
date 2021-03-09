@@ -1,56 +1,48 @@
 import { PlantEater } from "./plant-eater";
+import { Route } from "./route";
 import { utils } from "./utils";
+import { Vector } from "./vector";
 import { View } from "./view";
 
 export class SmartPlantEater extends PlantEater {
     energy: number;
     x: number;
     y: number;
+    route: Route;
 
     constructor(x: number, y: number) {
         super();
+        this.appropriateFood = '*';
         this.x = x;
         this.y = y;
     }
 
     act(context: View) {
-        const allFood = context.findAllFood("*");
-        let closestFood = allFood[0];
-        let distance = utils.calcDistance(this, allFood[0]);
+        //let dirs = []; //["n","ne","e","se","s","sw","w","nw"]; 
 
-        allFood.forEach( (vector, index) => {
-            const newDistance = utils.calcDistance(this, vector);
-    
-            if (newDistance < distance) {
-                closestFood = allFood[index];
-                distance = newDistance;
-            }
-        });
-   
-        const dirs = []; //["n","ne","e","se","s","sw","w","nw"]; 
-
-        if (this.x > closestFood.x) dirs.push("w")
-        if (this.x < closestFood.x) dirs.push("e")
-
-        if (this.y > closestFood.y) dirs.push("n")
-        if (this.y < closestFood.y) dirs.push("s")
-
-        if (this.x > closestFood.x && this.y > closestFood.y) dirs.push("nw")
-        if (this.x < closestFood.x && this.y < closestFood.y) dirs.push("se")
+        const closestFood = context.findClosestFood(this, this.appropriateFood, context);
         
-        if (this.x > closestFood.x && this.y < closestFood.y) dirs.push("sw")
-        if (this.x < closestFood.x && this.y > closestFood.y) dirs.push("ne")
+        // если путь не существует или в конце пути - не еда, создаем маршрут
+        if (!this.route || utils.charFromElement(context.world.grid.get(this.route.b)) !== this.appropriateFood) {
+            this.route = new Route(context, new Vector(this.x, this.y), closestFood);
+        }
 
-        //console.log(`dirs: ${JSON.stringify(dirs)} food:${JSON.stringify(closestFood)}`);
+        const space = context.find(' ');
+        const foodDirs = this.route.dirs;
+        const foodDir = foodDirs.pop();
 
-        const space = context.findFoodDirection(" ", dirs);
-
-        if (this.energy > 100 && space) return {type: "reproduce", direction: space};
+        if (this.energy > 100 && space) {
+            return {type: "reproduce", direction: space};
+        }
         
-        const plant = context.findFoodDirection("*", dirs);
+        const food = context.find(this.appropriateFood);
         
-        if (plant) return {type: "eat", direction: plant};
+        if (food) {
+            return {type: "eat", direction: food};
+        };
 
-        if (space) return {type: "move", direction: space};
+        if (foodDir) {
+            return {type: "move", direction: foodDir};
+        }
     }
 }

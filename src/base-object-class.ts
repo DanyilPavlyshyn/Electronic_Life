@@ -17,7 +17,7 @@ export class WorldObject {
         return element;
     }
 
-    charFromElement(element: Record<string, any>) {
+    charFromElement(element: Record<string, any>): string {
         if (element == null)
         return " ";
         else

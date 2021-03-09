@@ -6,6 +6,12 @@ function startMove(world: LifelikeWorld) {
     let counter: number = 0;
     
     const move = setInterval( () => {
+
+        if (world.checkExtinction() || counter >= 300) {
+            clearInterval(move);
+            return
+        } 
+
         console.clear();
         world.turn();
         counter += 1;
@@ -16,11 +22,6 @@ function startMove(world: LifelikeWorld) {
         console.log(`plants: ${world.plants}`);
         console.log(`plantEaters: ${world.plantEaters}`);
         console.log(`carnivores: ${world.carnivores}`);
-
-        if (world.checkExtinction() || counter >= 300) {
-            clearInterval(move);
-            return
-        } 
     }, 100);
 }
 

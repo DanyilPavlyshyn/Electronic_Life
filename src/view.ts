@@ -1,3 +1,4 @@
+import { SmartPlantEater } from "./smart-plant-eater";
 import { utils } from "./utils";
 import { Vector } from "./vector";
 import { World } from "./world";
@@ -31,10 +32,6 @@ export class View {
         return this.directionNames.filter(el => this.look(el) === symbol) ?? null;
     }
 
-    findFoodDirection(symbol: string, directions: string[]) {
-        return directions.find(el => this.look(el) === symbol) ?? null;
-    }
-
     findAllFood(food: string) {
         const allFood: Vector[] = [];
 
@@ -46,6 +43,28 @@ export class View {
         }, this.world)
 
         return allFood
+    }
+
+    findClosestFood(being: SmartPlantEater, food: string, context: View) {
+        const allFood = context.findAllFood(food);
+        
+        if (allFood.length > 0) {
+            let closestFood = allFood[0];
+            let distance = utils.calcDistance(being, allFood[0]);
+
+            allFood.forEach( (vector, index) => {
+                const newDistance = utils.calcDistance(being, vector);
+        
+                if (newDistance < distance) {
+                    closestFood = allFood[index];
+                    distance = newDistance;
+                }
+            });
+            
+            return closestFood
+        }
+
+        return null
     }
 }
 
